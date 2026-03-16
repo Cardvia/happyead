@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.2, user-scalable=yes">
-    <title>عيد مبارك - رج الموبايل للظهور</title>
+    <title>عيد مبارك - رج الموبايل يعمل</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- خطوط عربية -->
@@ -149,7 +149,7 @@
             box-shadow: 0 0 0 #5e4a1e, 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        /* ===== البطاقة الرئيسية (مخفية في البداية) ===== */
+        /* البطاقة الرئيسية (مخفية) */
         .eid-card {
             position: relative;
             z-index: 15;
@@ -199,7 +199,6 @@
             text-shadow: 2px 2px 0 #f3e6c0, 4px 4px 0 rgba(0,0,0,0.1);
             line-height: 1.3;
             color: #2a1f0c;
-            word-break: break-word;
         }
 
         .sub-message {
@@ -249,7 +248,7 @@
             line-height: 1.4;
         }
 
-        /* زخارف خلفية كثيفة (مساجد، نجوم، أهلة) */
+        /* زخارف خلفية كثيفة */
         .extra-decor {
             position: absolute;
             top: 0;
@@ -264,27 +263,19 @@
             position: absolute;
             color: rgba(184, 134, 11, 0.12);
             font-size: 5rem;
-            transform: rotate(0deg);
-            user-select: none;
         }
-        /* توزيع عشوائي */
-        .extra-decor i:nth-child(1) { top: 2%; left: 3%; font-size: 7rem; transform: rotate(-5deg); }
-        .extra-decor i:nth-child(2) { top: 15%; right: 8%; font-size: 6.5rem; transform: rotate(15deg); }
-        .extra-decor i:nth-child(3) { bottom: 10%; left: 12%; font-size: 8rem; transform: rotate(-10deg); }
-        .extra-decor i:nth-child(4) { top: 30%; right: 20%; font-size: 5.5rem; transform: rotate(20deg); }
-        .extra-decor i:nth-child(5) { bottom: 25%; right: 15%; font-size: 7.2rem; transform: rotate(-15deg); }
-        .extra-decor i:nth-child(6) { top: 60%; left: 5%; font-size: 6rem; transform: rotate(5deg); }
-        .extra-decor i:nth-child(7) { top: 75%; right: 25%; font-size: 8.5rem; transform: rotate(-20deg); }
-        .extra-decor i:nth-child(8) { bottom: 5%; left: 20%; font-size: 5.8rem; transform: rotate(12deg); }
-        .extra-decor i:nth-child(9) { top: 45%; left: 30%; font-size: 7.8rem; transform: rotate(-8deg); }
-        .extra-decor i:nth-child(10) { top: 85%; right: 5%; font-size: 6.2rem; transform: rotate(25deg); }
-        .extra-decor i:nth-child(11) { top: 12%; left: 50%; font-size: 9rem; transform: rotate(-12deg); opacity: 0.1; }
-        .extra-decor i:nth-child(12) { bottom: 40%; right: 40%; font-size: 7rem; transform: rotate(18deg); }
-        .extra-decor i:nth-child(13) { top: 70%; left: 70%; font-size: 6.8rem; transform: rotate(-22deg); }
-        .extra-decor i:nth-child(14) { top: 20%; right: 70%; font-size: 8.2rem; transform: rotate(7deg); }
-        .extra-decor i:nth-child(15) { bottom: 15%; left: 80%; font-size: 5.5rem; transform: rotate(-18deg); }
+        .extra-decor i:nth-child(1) { top: 2%; left: 3%; font-size: 7rem; }
+        .extra-decor i:nth-child(2) { top: 15%; right: 8%; font-size: 6.5rem; }
+        .extra-decor i:nth-child(3) { bottom: 10%; left: 12%; font-size: 8rem; }
+        .extra-decor i:nth-child(4) { top: 30%; right: 20%; font-size: 5.5rem; }
+        .extra-decor i:nth-child(5) { bottom: 25%; right: 15%; font-size: 7.2rem; }
+        .extra-decor i:nth-child(6) { top: 60%; left: 5%; font-size: 6rem; }
+        .extra-decor i:nth-child(7) { top: 75%; right: 25%; font-size: 8.5rem; }
+        .extra-decor i:nth-child(8) { bottom: 5%; left: 20%; font-size: 5.8rem; }
+        .extra-decor i:nth-child(9) { top: 45%; left: 30%; font-size: 7.8rem; }
+        .extra-decor i:nth-child(10) { top: 85%; right: 5%; font-size: 6.2rem; }
 
-        /* شريط التكبيرات السفلي */
+        /* شريط التكبيرات */
         .takbeer {
             position: fixed;
             bottom: 0;
@@ -302,35 +293,23 @@
             width: 100%;
             box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
             line-height: 1.5;
-            display: none; /* مخفي مع البطاقة */
+            display: none;
         }
-
-        body {
-            padding-bottom: 60px;
-        }
-
-        @media (max-width: 380px) {
-            .cover-message { font-size: 1.8rem; }
-            .cover-button { font-size: 1.5rem; padding: 1rem 2rem; }
-        }
+        body { padding-bottom: 60px; }
     </style>
 </head>
 <body>
 
-    <!-- فوانيس -->
     <div class="lantern-left"><i class="fas fa-lantern"></i></div>
     <div class="lantern-right"><i class="fas fa-lantern"></i></div>
 
-    <!-- زخارف خلفية كثيفة -->
     <div class="extra-decor">
-        <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>
+        <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i>
     </div>
 
-    <!-- ===== شاشة البداية (الغلاف) ===== -->
+    <!-- شاشة البداية -->
     <div class="cover-screen" id="coverScreen">
-        <div class="cover-icon">
-            <i class="fas fa-mobile-alt"></i>
-        </div>
+        <div class="cover-icon"><i class="fas fa-mobile-alt"></i></div>
         <div class="cover-message">
             <i class="fas fa-hand-point-right"></i> رج الموبايل <i class="fas fa-hand-point-left"></i>
         </div>
@@ -340,25 +319,23 @@
         <button class="cover-button" id="showCardBtn">
             <i class="fas fa-hand-pointer"></i> دوس هنا
         </button>
+        <p id="iosPermissionMsg" style="margin-top: 20px; color: #b8860b; font-size: 1.2rem; display: none;">
+            ⚡ اضغط على "سماح" إذا طلب المتصفح الإذن
+        </p>
     </div>
 
-    <!-- البطاقة الرئيسية (مخفية) -->
+    <!-- البطاقة المخفية -->
     <div class="eid-card" id="eidCard">
         <div class="card-border-pattern"></div>
         <div class="title-decoration"><span class="line"></span></div>
-        <div class="greeting-text">
-            <h1>كل عام وأنتم بخير</h1>
-            <div class="sub-message">فخورين بوجودكم معانا</div>
-        </div>
+        <h1>كل عام وأنتم بخير</h1>
+        <div class="sub-message">فخورين بوجودكم معانا</div>
         <div class="divider"></div>
         <div class="heart-message">عيد مبارك تقبل الله منا ومنكم</div>
         <div class="team-tag">فريق العمل</div>
     </div>
 
-    <!-- شريط التكبيرات (مخفي) -->
-    <div class="takbeer" id="takbeer">
-        الله أكبر الله أكبر لا إله إلا الله والله أكبر الله ولله الحمد
-    </div>
+    <div class="takbeer" id="takbeer">الله أكبر الله أكبر لا إله إلا الله والله أكبر الله ولله الحمد</div>
 
     <script>
         (function() {
@@ -366,6 +343,10 @@
             const eidCard = document.getElementById('eidCard');
             const takbeer = document.getElementById('takbeer');
             const showBtn = document.getElementById('showCardBtn');
+            const iosMsg = document.getElementById('iosPermissionMsg');
+
+            // متغير لتخزين دالة معالجة الهز
+            let motionHandler = null;
 
             // دالة إظهار البطاقة وإخفاء الغلاف
             function showCard() {
@@ -376,66 +357,90 @@
                 }
             }
 
-            // زر "دوس هنا"
-            showBtn.addEventListener('click', showCard);
-
-            // كشف هز الموبايل
-            let lastTime = 0;
-            let lastX = 0, lastY = 0, lastZ = 0;
-            const SHAKE_THRESHOLD = 15; // عتبة الهز
-
-            // التحقق مما إذا كان المتصفح يدعم حدث الحركة
-            if (window.DeviceMotionEvent) {
-                // طلب الإذن لمنصات iOS (iOS 13+)
-                if (typeof DeviceMotionEvent.requestPermission === 'function') {
-                    // iOS: نحتاج لنقرة من المستخدم لطلب الإذن
-                    showBtn.addEventListener('click', function requestPermission() {
+            // دالة طلب الإذن وإعداد مستمع الهز (لـ iOS)
+            function setupShake() {
+                if (window.DeviceMotionEvent) {
+                    // تحقق إذا كان الطلب بالـ Permission مطلوباً (iOS 13+)
+                    if (typeof DeviceMotionEvent.requestPermission === 'function') {
+                        iosMsg.style.display = 'block'; // تلميح للمستخدم
                         DeviceMotionEvent.requestPermission()
                             .then(response => {
+                                iosMsg.style.display = 'none';
                                 if (response === 'granted') {
+                                    // تم منح الإذن، نضيف المستمع
                                     window.addEventListener('devicemotion', handleMotion);
+                                } else {
+                                    console.log('Permission denied');
                                 }
                             })
-                            .catch(console.error);
-                        // إزالة المستمع بعد أول نقرة لتجنب طلب متكرر
-                        showBtn.removeEventListener('click', requestPermission);
-                    });
+                            .catch(err => {
+                                iosMsg.style.display = 'none';
+                                console.error('Permission error:', err);
+                            });
+                    } else {
+                        // الأندرويد وباقي المتصفحات: نضيف المستمع مباشرة
+                        window.addEventListener('devicemotion', handleMotion);
+                    }
                 } else {
-                    // الأندرويد وغيره: نضيف المستمع مباشرة
-                    window.addEventListener('devicemotion', handleMotion);
+                    console.log('DeviceMotionEvent غير مدعوم');
                 }
             }
 
+            // معالج الهز
             function handleMotion(event) {
-                const acceleration = event.accelerationIncludingGravity;
+                const acceleration = event.acceleration || event.accelerationIncludingGravity;
                 if (!acceleration) return;
 
-                const currentTime = Date.now();
-                const timeDiff = currentTime - lastTime;
+                const threshold = 12; // حساسية منخفضة (أسهل للهز)
+                const { x, y, z } = acceleration;
 
-                if (timeDiff > 100) { // تحديث كل 100 مللي
-                    const x = acceleration.x;
-                    const y = acceleration.y;
-                    const z = acceleration.z;
-
-                    if (lastX !== 0 || lastY !== 0 || lastZ !== 0) {
-                        const deltaX = Math.abs(x - lastX);
-                        const deltaY = Math.abs(y - lastY);
-                        const deltaZ = Math.abs(z - lastZ);
-
-                        const shakeIntensity = deltaX + deltaY + deltaZ;
-
-                        if (shakeIntensity > SHAKE_THRESHOLD) {
-                            showCard();
-                        }
-                    }
-
-                    lastX = x;
-                    lastY = y;
-                    lastZ = z;
-                    lastTime = currentTime;
+                // نحتاج لقيم سابقة للمقارنة
+                if (typeof handleMotion.lastX === 'undefined') {
+                    handleMotion.lastX = x;
+                    handleMotion.lastY = y;
+                    handleMotion.lastZ = z;
+                    return;
                 }
+
+                const deltaX = Math.abs(x - handleMotion.lastX);
+                const deltaY = Math.abs(y - handleMotion.lastY);
+                const deltaZ = Math.abs(z - handleMotion.lastZ);
+                const shake = deltaX + deltaY + deltaZ;
+
+                if (shake > threshold) {
+                    showCard();
+                }
+
+                handleMotion.lastX = x;
+                handleMotion.lastY = y;
+                handleMotion.lastZ = z;
             }
+
+            // عند تحميل الصفحة، نحاول طلب الإذن إذا كان iOS
+            // لكن iOS يتطلب تفاعل المستخدم، لذلك سنطلب عند أول نقرة على الشاشة
+            function requestPermissionOnFirstClick() {
+                // إزالة المستمع بعد أول مرة
+                document.removeEventListener('click', requestPermissionOnFirstClick);
+                setupShake();
+            }
+
+            // إذا كان iOS ننتظر أول نقرة، وإلا نضبط مباشرة
+            if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+                // iOS: ننتظر أول نقرة في أي مكان
+                document.addEventListener('click', requestPermissionOnFirstClick);
+            } else {
+                // أندرويد: نضبط مباشرة
+                setupShake();
+            }
+
+            // الزر الرئيسي
+            showBtn.addEventListener('click', function(e) {
+                e.stopPropagation(); // منع تضارب مع مستمع النقر العام
+                showCard();
+            });
+
+            // في حالة iOS، أول نقرة ستطلب الإذن ثم تعرض البطاقة إذا هز المستخدم
+            // نضيف أيضاً إمكانية ظهور البطاقة بالزر كما هو
         })();
     </script>
 </body>
