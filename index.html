@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.2, user-scalable=yes">
-    <title>عيد مبارك - رج الموبايل يعمل</title>
+    <title>عيد مبارك - طلب الإذن تلقائي</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- خطوط عربية -->
@@ -304,7 +304,7 @@
     <div class="lantern-right"><i class="fas fa-lantern"></i></div>
 
     <div class="extra-decor">
-        <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i>
+        <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i> <i class="fas fa-mosque"></i> <i class="fas fa-star-and-crescent"></i>
     </div>
 
     <!-- شاشة البداية -->
@@ -319,8 +319,8 @@
         <button class="cover-button" id="showCardBtn">
             <i class="fas fa-hand-pointer"></i> دوس هنا
         </button>
-        <p id="iosPermissionMsg" style="margin-top: 20px; color: #b8860b; font-size: 1.2rem; display: none;">
-            ⚡ اضغط على "سماح" إذا طلب المتصفح الإذن
+        <p id="iosPermissionMsg" style="margin-top: 20px; color: #b8860b; font-size: 1.2rem;">
+            ⚡ سيُطلب الإذن تلقائياً على أجهزة أبل
         </p>
     </div>
 
@@ -345,8 +345,8 @@
             const showBtn = document.getElementById('showCardBtn');
             const iosMsg = document.getElementById('iosPermissionMsg');
 
-            // متغير لتخزين دالة معالجة الهز
             let motionHandler = null;
+            let permissionRequested = false; // منع طلب الإذن أكثر من مرة
 
             // دالة إظهار البطاقة وإخفاء الغلاف
             function showCard() {
@@ -357,44 +357,14 @@
                 }
             }
 
-            // دالة طلب الإذن وإعداد مستمع الهز (لـ iOS)
-            function setupShake() {
-                if (window.DeviceMotionEvent) {
-                    // تحقق إذا كان الطلب بالـ Permission مطلوباً (iOS 13+)
-                    if (typeof DeviceMotionEvent.requestPermission === 'function') {
-                        iosMsg.style.display = 'block'; // تلميح للمستخدم
-                        DeviceMotionEvent.requestPermission()
-                            .then(response => {
-                                iosMsg.style.display = 'none';
-                                if (response === 'granted') {
-                                    // تم منح الإذن، نضيف المستمع
-                                    window.addEventListener('devicemotion', handleMotion);
-                                } else {
-                                    console.log('Permission denied');
-                                }
-                            })
-                            .catch(err => {
-                                iosMsg.style.display = 'none';
-                                console.error('Permission error:', err);
-                            });
-                    } else {
-                        // الأندرويد وباقي المتصفحات: نضيف المستمع مباشرة
-                        window.addEventListener('devicemotion', handleMotion);
-                    }
-                } else {
-                    console.log('DeviceMotionEvent غير مدعوم');
-                }
-            }
-
-            // معالج الهز
+            // معالج الهز (بنفس الطريقة)
             function handleMotion(event) {
                 const acceleration = event.acceleration || event.accelerationIncludingGravity;
                 if (!acceleration) return;
 
-                const threshold = 12; // حساسية منخفضة (أسهل للهز)
+                const threshold = 12;
                 const { x, y, z } = acceleration;
 
-                // نحتاج لقيم سابقة للمقارنة
                 if (typeof handleMotion.lastX === 'undefined') {
                     handleMotion.lastX = x;
                     handleMotion.lastY = y;
@@ -416,31 +386,64 @@
                 handleMotion.lastZ = z;
             }
 
-            // عند تحميل الصفحة، نحاول طلب الإذن إذا كان iOS
-            // لكن iOS يتطلب تفاعل المستخدم، لذلك سنطلب عند أول نقرة على الشاشة
-            function requestPermissionOnFirstClick() {
-                // إزالة المستمع بعد أول مرة
-                document.removeEventListener('click', requestPermissionOnFirstClick);
-                setupShake();
+            // دالة طلب الإذن وإعداد المستمع (لـ iOS)
+            function requestPermissionAndSetup() {
+                if (permissionRequested) return;
+                permissionRequested = true;
+
+                if (window.DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === 'function') {
+                    // iOS: طلب الإذن
+                    DeviceMotionEvent.requestPermission()
+                        .then(response => {
+                            if (response === 'granted') {
+                                window.addEventListener('devicemotion', handleMotion);
+                                iosMsg.innerText = '✅ تم التفعيل، يمكنك رج الموبايل الآن';
+                            } else {
+                                iosMsg.innerText = '❌ لم يتم منح الإذن، استخدم الزر بدلاً من ذلك';
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            iosMsg.innerText = '⚠️ حدث خطأ، استخدم الزر';
+                        });
+                } else if (window.DeviceMotionEvent) {
+                    // أندرويد: مباشرة
+                    window.addEventListener('devicemotion', handleMotion);
+                    iosMsg.innerText = '✅ مفعل، رج الموبايل الآن';
+                } else {
+                    iosMsg.innerText = '❌ جهازك لا يدعم استشعار الحركة';
+                }
             }
 
-            // إذا كان iOS ننتظر أول نقرة، وإلا نضبط مباشرة
-            if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
-                // iOS: ننتظر أول نقرة في أي مكان
-                document.addEventListener('click', requestPermissionOnFirstClick);
-            } else {
-                // أندرويد: نضبط مباشرة
-                setupShake();
+            // عند تحميل الصفحة، نطلب الإذن فوراً (إذا iOS سيظهر طلب إذن فوري)
+            // لكن طلب الإذن يجب أن يكون نتيجة تفاعل المستخدم، لذلك لا يمكن استدعاؤه مباشرة.
+            // الحل: سنقوم بعرض رسالة تخبر المستخدم بأنه سيتم طلب الإذن عند النقر على الزر.
+            // ولكن لتحقيق "يطلب الإذن بمجرد فتح اللينك"، يجب أن يكون هناك تفاعل تلقائي، وهو ما لا تسمح به iOS.
+            // لذلك سنقوم بإظهار طلب الإذن عند النقر على أي مكان في الشاشة (أول نقرة).
+            // هذا يعادل تقريباً "عند فتح الرابط" لأن المستخدم سيضطر للنقر في أي مكان.
+            // سنضيف مستمع click للصفحة يطلب الإذن (مرة واحدة فقط) ثم يزيل نفسه.
+
+            function firstInteraction() {
+                requestPermissionAndSetup();
+                document.removeEventListener('click', firstInteraction);
+                document.removeEventListener('touchstart', firstInteraction);
             }
 
-            // الزر الرئيسي
+            // ننتظر أول تفاعل من المستخدم (نقرة أو لمسة)
+            document.addEventListener('click', firstInteraction);
+            document.addEventListener('touchstart', firstInteraction);
+
+            // الزر الرئيسي يظهر البطاقة فوراً (بدون انتظار الهز) ويقوم أيضاً بطلب الإذن إذا لم يحدث
             showBtn.addEventListener('click', function(e) {
-                e.stopPropagation(); // منع تضارب مع مستمع النقر العام
+                e.stopPropagation(); // لا نريد تكرار طلب الإذن
+                if (!permissionRequested) {
+                    requestPermissionAndSetup();
+                }
                 showCard();
             });
 
-            // في حالة iOS، أول نقرة ستطلب الإذن ثم تعرض البطاقة إذا هز المستخدم
-            // نضيف أيضاً إمكانية ظهور البطاقة بالزر كما هو
+            // في حالة iOS، أول نقرة على أي مكان ستطلب الإذن.
+            // إذا لم يحدث أي تفاعل، المستخدم سيضطر للنقر على الزر.
         })();
     </script>
 </body>
